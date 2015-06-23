@@ -1,7 +1,13 @@
 <div>
-  <form action='/hit_or_miss'>
+	<% if @coord && @coord != "" %>
+		<%= $game.player_1.shoot @coord.to_sym %>
+<pre>
+<%= $game.opponent_board_view $game.player_1 %>
+</pre>
+	<% end %>	
+  	<form action='/play_game' method='post'>
     Enter the coordinate you want to hit!
     <input type="text" name="coord">
-    <input type="submit" value="Submit">
-  </form>
+   	<input type="submit" value="Submit">
+  	</form>
 </div>

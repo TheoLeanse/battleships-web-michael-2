@@ -11,7 +11,7 @@ feature 'Starting a new game' do
     visit '/new_game'
     fill_in('name', with: 'Michael')
     click_on 'Submit'
-    expect(page).to have_content 'You are now registered!'
+    expect(page).to have_content 'You are now registered, Michael!'
 
   end
 

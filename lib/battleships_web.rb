@@ -12,21 +12,27 @@ class BattleshipsWeb < Sinatra::Base
     erb :new_game
   end
 
-  get '/play_game' do
+  get '/setup_game' do
+
     $game = Game.new(Player,Board)
-    $coord = params[:coord]
+    $game.player_2.place_ship(Ship.battleship, :A1, :vertically)
+    $game.player_2.place_ship(Ship.aircraft_carrier, :C1, :vertically)
+    $game.player_2.place_ship(Ship.cruiser, :E1, :vertically)
+    $game.player_2.place_ship(Ship.destroyer, :G1, :vertically)
+    $game.player_2.place_ship(Ship.submarine, :I1, :vertically)
+
+    redirect '/play_game'
+
+  end
+
+  get '/play_game' do
     erb :play_game
   end
 
-  get '/hit_or_miss' do
-    erb :hit_or_miss
+  post '/play_game' do
+    @coord = params[:coord]
+    erb :play_game
   end
 
-
-
-  # get '/new_game' do
-  #
-  # end
-  # start the server if ruby file executed directly
   run! if app_file == $0
 end
