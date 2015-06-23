@@ -15,8 +15,12 @@ feature 'Starting a new game' do
 
   end
 
-  # scenario 'I can click a link to start the name' do
-  #   visit
-  # end
+  scenario 'I can click a link to start the game' do
+    visit '/new_game'
+    fill_in('name', with: 'Michael')
+    click_on 'Submit'
+    click_link 'Begin your adventure'
+    expect(page).to have_content 'Select your first ship'
+  end
 
 end

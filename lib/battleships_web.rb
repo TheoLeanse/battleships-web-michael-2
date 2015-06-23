@@ -12,6 +12,15 @@ class BattleshipsWeb < Sinatra::Base
     erb :new_game
   end
 
+  get '/setup_game' do
+    ship =
+    game = Game.new Player, Board
+    game.player_1.place_ship
+    erb :setup_game
+  end
+
+
+
   # get '/new_game' do
   #
   # end
