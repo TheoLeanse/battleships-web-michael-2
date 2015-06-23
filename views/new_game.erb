@@ -1,12 +1,12 @@
 <div>
 	<% if @player %>
-	 You are now registered!
+	 You are now registered, <%= @player %>!
 	 <a href='/play_game'>Begin your adventure</a>
 	<% else %>
     <form action="/new_game">
-     What is your name you seafaring scoundrel?
-    <input type="text" name="name">
-    <input type="submit" value="Submit">
-</form>
-<% end %>
-</div>subl
+      What is your name you seafaring scoundrel?
+      <input type="text" name="name">
+      <input type="submit" value="Submit">
+    </form>
+  <% end %>
+</div>

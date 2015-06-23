@@ -13,8 +13,13 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get '/play_game' do
-    $game = Game.new(Player,Board) 
+    $game = Game.new(Player,Board)
+    $coord = params[:coord]
     erb :play_game
+  end
+
+  get '/hit_or_miss' do
+    erb :hit_or_miss
   end
 
 
