@@ -20,7 +20,7 @@ feature 'Starting a new game' do
     fill_in('name', with: 'Michael')
     click_on 'Submit'
     click_link 'Begin your adventure'
-    expect(page).to have_content 'Select your first ship'
+    expect(page).to have_content 'Enter the coordinate you want to hit!'
   end
 
 end

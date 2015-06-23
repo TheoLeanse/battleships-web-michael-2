@@ -12,11 +12,9 @@ class BattleshipsWeb < Sinatra::Base
     erb :new_game
   end
 
-  get '/setup_game' do
-    ship =
-    game = Game.new Player, Board
-    game.player_1.place_ship
-    erb :setup_game
+  get '/play_game' do
+    $game = Game.new(Player,Board) 
+    erb :play_game
   end
 
 
