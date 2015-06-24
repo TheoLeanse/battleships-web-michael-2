@@ -4,6 +4,7 @@ require 'battleships'
 class BattleshipsWeb < Sinatra::Base
   set :views, proc { File.join(root, '..', 'views') }
   get '/' do
+    $game = Game.new(Player,Board)
     erb :index
   end
 
@@ -14,11 +15,10 @@ class BattleshipsWeb < Sinatra::Base
 
   get '/setup_game' do
 
-    $game = Game.new(Player,Board)
     $game.player_2.place_ship(Ship.battleship, :A1, :vertically)
-    $game.player_2.place_ship(Ship.aircraft_carrier, :C1, :vertically)
-    $game.player_2.place_ship(Ship.cruiser, :E1, :vertically)
-    $game.player_2.place_ship(Ship.destroyer, :G1, :vertically)
+    # $game.player_2.place_ship(Ship.aircraft_carrier, :C1, :vertically)
+    # $game.player_2.place_ship(Ship.cruiser, :E1, :vertically)
+    # $game.player_2.place_ship(Ship.destroyer, :G1, :vertically)
     $game.player_2.place_ship(Ship.submarine, :I1, :vertically)
 
     redirect '/play_game'
@@ -26,13 +26,37 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get '/play_game' do
+    @board = $game.opponent_board_view $game.player_1
     erb :play_game
   end
 
   post '/play_game' do
     @coord = params[:coord]
+    # @status = "BEGIN!"
+    if @coord && @coord != ""
+      begin
+        @status = $game.player_1.shoot @coord.to_sym
+      rescue
+        @status = 'You have already hit that coordinate or it is not on the board!'
+      end
+    end
+    redirect '/victory' if $game.has_winner?
+    @board = $game.opponent_board_view $game.player_1
     erb :play_game
+  end
+
+  get '/victory' do
+    erb :victory
   end
 
   run! if app_file == $0
 end
+
+# <% if @coord && @coord != "" %>
+#     <% begin %>
+#       <%= $game.player_1.shoot @coord.to_sym %>
+#     <% rescue %>
+#       You have already hit that coordinate or it is not on the board!
+#     <% end %>
+
+# <%= $game.opponent_board_view $game.player_1 %>
