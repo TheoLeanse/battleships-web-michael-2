@@ -57,7 +57,7 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   post '/new_game_21' do
-    $game.player_1.place_ship(Ship.submarine, params[:sub_coords], params[:sub_dir])
+    $game.player_1.place_ship(Ship.battleship, params[:sub_coords], params[:sub_dir])
     redirect '/new_game_22'
   end
 
@@ -66,13 +66,27 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   post '/new_game_22' do
-    $game.player_2.place_ship(Ship.submarine, params[:sub_coords], params[:sub_dir])
+    $game.player_2.place_ship(Ship.battleship, params[:sub_coords], params[:sub_dir])
     redirect '/play_game_21'
   end
 
   get '/play_game_21' do
+    @message = 'Player 1, choose coordinate to fire!'
+    @board = $game.opponent_board_view $game.player_1
     erb :play_game_21
   end
+
+  post '/play_game_21' do
+    @result = $game.player_1.shoot(params[:hit_coord].to_sym)
+    @board = $game.opponent_board_view $game.player_1
+    if @result == :hit
+      @message = 'Well done! That was a hit!'
+    else
+      @message = 'Sorry, that was a miss!'
+    end
+    erb :play_game_21
+  end
+
 
   run! if app_file == $0
 end

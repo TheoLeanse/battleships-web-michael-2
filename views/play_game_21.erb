@@ -1,1 +1,13 @@
-Player 1, choose coordinate to fire!
+<%= @message %>
+<pre>
+<%= @board %>	
+</pre>
+<% if !@result %>
+<form method='post'>
+<input type="text" name="hit_coord">
+<input type="submit" value="Submit">
+</form>
+<% else %>
+<p>Player 2, are you ready!?</p>
+<a href='/play_game_22'>ready</a>
+<% end %>
