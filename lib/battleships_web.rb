@@ -51,13 +51,28 @@ class BattleshipsWeb < Sinatra::Base
 
   # for 2 player game
 
-  get '/new_game_2' do
-    erb :new_game_2
+  get '/new_game_21' do
+    # set up board for player 1
+    erb :new_game_21
   end
 
+  post '/new_game_21' do
+    $game.player_1.place_ship(Ship.submarine, params[:sub_coords], params[:sub_dir])
+    redirect '/new_game_22'
+  end
 
+  get '/new_game_22' do
+    erb :new_game_22
+  end
+
+  post '/new_game_22' do
+    $game.player_2.place_ship(Ship.submarine, params[:sub_coords], params[:sub_dir])
+    redirect '/play_game_21'
+  end
+
+  get '/play_game_21' do
+    erb :play_game_21
+  end
 
   run! if app_file == $0
 end
-
-
