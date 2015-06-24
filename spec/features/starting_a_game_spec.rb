@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'Starting a new game' do
   scenario 'I am asked to enter my name' do
     visit '/'
-    click_link 'Click to begin'
+    click_link 'Start 1 player game'
     expect(page).to have_content "What is your name you seafaring scoundrel?"
   end
 

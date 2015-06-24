@@ -49,14 +49,15 @@ class BattleshipsWeb < Sinatra::Base
     erb :victory
   end
 
+  # for 2 player game
+
+  get '/new_game_2' do
+    erb :new_game_2
+  end
+
+
+
   run! if app_file == $0
 end
 
-# <% if @coord && @coord != "" %>
-#     <% begin %>
-#       <%= $game.player_1.shoot @coord.to_sym %>
-#     <% rescue %>
-#       You have already hit that coordinate or it is not on the board!
-#     <% end %>
 
-# <%= $game.opponent_board_view $game.player_1 %>
