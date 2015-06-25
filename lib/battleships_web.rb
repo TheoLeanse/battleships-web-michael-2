@@ -53,6 +53,7 @@ class BattleshipsWeb < Sinatra::Base
 
   get '/new_game_21' do
     @status = params[:status]
+    @board = $game.own_board_view $game.player_1
     erb :new_game_21
   end
 
@@ -71,6 +72,7 @@ class BattleshipsWeb < Sinatra::Base
 
   get '/new_game_22' do
     @status = params[:status]
+    @board = $game.own_board_view $game.player_2
     erb :new_game_22
   end
 
