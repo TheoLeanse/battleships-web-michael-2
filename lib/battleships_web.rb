@@ -3,8 +3,12 @@ require 'battleships'
 
 class BattleshipsWeb < Sinatra::Base
   set :views, proc { File.join(root, '..', 'views') }
+  enable :sessions
+
   get '/' do
     $game = Game.new(Player,Board)
+    session[:player1_ships] = "submarine,battleship,aircraft_carrier,cruiser,destroyer"
+    session[:player2_ships] = "submarine,battleship,aircraft_carrier,cruiser,destroyer"
     erb :index
   end
 
@@ -52,6 +56,7 @@ class BattleshipsWeb < Sinatra::Base
   # for 2 player game
 
   get '/new_game_21' do
+    @ships = session[:player1_ships].split(",")
     @status = params[:status]
     @board = $game.own_board_view $game.player_1
     erb :new_game_21
@@ -59,15 +64,14 @@ class BattleshipsWeb < Sinatra::Base
 
   post '/new_game_21' do
     begin
-      $game.player_1.place_ship(Ship.submarine, params[:sub_coord], params[:sub_dir])
-      $game.player_1.place_ship(Ship.battleship, params[:bat_coord], params[:bat_dir])
-      $game.player_1.place_ship(Ship.destroyer, params[:des_coord], params[:des_dir])
-      $game.player_1.place_ship(Ship.cruiser, params[:cru_coord], params[:cru_dir])
-      $game.player_1.place_ship(Ship.aircraft_carrier, params[:car_coord], params[:car_dir])
+      $game.player_1.place_ship(Ship.send(params[:ship_select]), params[:coord], params[:dir])
     rescue
-      redirect '/new_game_21?status=invalid'
+      redirect "/new_game_21?status=invalid"
     end
-    redirect '/new_game_22'
+    @ships = session[:player1_ships].split(",")
+    @ships.delete(params[:ship_select])
+    session[:player1_ships] = @ships.join(",")
+    redirect '/new_game_21'
   end
 
   get '/new_game_22' do

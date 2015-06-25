@@ -7,45 +7,23 @@
 <%= @board %>
 </pre>
 <form method="post">
-	<h2>Position Submarine:</h2>
+	<b>Ship:</b>
+	<select name="ship_select">
+		<% @ships.each do |ship|%>
+		<option value="<%=ship%>"><%= ship %></option>
+		<% end %>
+	</select>
 	<p><b>Orientation:</b>
-	  <input id="sub_hor" type="radio" name="sub_dir" value='horizontal'>Horizontal
-  	<input id="sub_ver" type="radio" name="sub_dir" value='vertical'>Vertical
+	  <input id="hor" type="radio" name="dir" value='horizontally'>Horizontal
+  	<input id="ver" type="radio" name="dir" value='vertically'>Vertical
   </p>
   <p><b>Coordinate:</b>
-	  <input type="text" name="sub_coord">
+	  <input type="text" name="coord">
   </p>
-  <h2>Position Battleship:</h2>
-	<p><b>Orientation:</b>
-	  <input id="bat_hor" type="radio" name="bat_dir" value='horizontal'>Horizontal
-  	<input id="bat_ver" type="radio" name="bat_dir" value='vertical'>Vertical
-  </p>
-  <p><b>Coordinate:</b>
-	  <input type="text" name="bat_coord">
-  </p>
-  <h2>Position Destroyer:</h2>
-	<p><b>Orientation:</b>
-	  <input id="des_hor" type="radio" name="des_dir" value='horizontal'>Horizontal
-  	<input id="des_ver" type="radio" name="des_dir" value='vertical'>Vertical
-  </p>
-  <p><b>Coordinate:</b>
-	  <input type="text" name="des_coord">
-  </p>
-  <h2>Position Cruiser:</h2>
-	<p><b>Orientation:</b>
-	  <input id="cru_hor" type="radio" name="cru_dir" value='horizontal'>Horizontal
-  	<input id="cru_ver" type="radio" name="cru_dir" value='vertical'>Vertical
-  </p>
-  <p><b>Coordinate:</b>
-	  <input type="text" name="cru_coord">
-  </p>
-  <h2>Position Carrier:</h2>
-	<p><b>Orientation:</b>
-	  <input id="car_hor" type="radio" name="car_dir" value='horizontal'>Horizontal
-  	<input id="car_ver" type="radio" name="car_dir" value='vertical'>Vertical
-  </p>
-  <p><b>Coordinate:</b>
-	  <input type="text" name="car_coord">
-  </p>
-  <input type="submit" value="Submit">
+	<%if @ships == [] %>
+		You are now ready. Click to begin setup for player 2!
+		<a href='/new_game_22'>begin</a>
+	<% else %>
+  	<input type="submit" value="Submit">
+	<% end %>
 </form>
