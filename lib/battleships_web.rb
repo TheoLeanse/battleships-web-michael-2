@@ -52,21 +52,40 @@ class BattleshipsWeb < Sinatra::Base
   # for 2 player game
 
   get '/new_game_21' do
+    @status = params[:status]
     erb :new_game_21
   end
 
   post '/new_game_21' do
-    $game.player_1.place_ship(Ship.battleship, params[:sub_coords], params[:sub_dir])
+    begin
+      $game.player_1.place_ship(Ship.submarine, params[:sub_coord], params[:sub_dir])
+      $game.player_1.place_ship(Ship.battleship, params[:bat_coord], params[:bat_dir])
+      $game.player_1.place_ship(Ship.destroyer, params[:des_coord], params[:des_dir])
+      $game.player_1.place_ship(Ship.cruiser, params[:cru_coord], params[:cru_dir])
+      $game.player_1.place_ship(Ship.aircraft_carrier, params[:car_coord], params[:car_dir])
+    rescue
+      redirect '/new_game_21?status=invalid'
+    end
     redirect '/new_game_22'
   end
 
   get '/new_game_22' do
+    @status = params[:status]
     erb :new_game_22
   end
 
   post '/new_game_22' do
-    $game.player_2.place_ship(Ship.battleship, params[:sub_coords], params[:sub_dir])
+    begin
+      $game.player_2.place_ship(Ship.submarine, params[:sub_coord], params[:sub_dir])
+      $game.player_2.place_ship(Ship.battleship, params[:bat_coord], params[:bat_dir])
+      $game.player_2.place_ship(Ship.destroyer, params[:des_coord], params[:des_dir])
+      $game.player_2.place_ship(Ship.cruiser, params[:cru_coord], params[:cru_dir])
+      $game.player_2.place_ship(Ship.aircraft_carrier, params[:car_coord], params[:car_dir])
+    rescue
+      redirect '/new_game_22?status=invalid'
+    end
     redirect '/play_game_21'
+
   end
 
   get '/play_game_21' do

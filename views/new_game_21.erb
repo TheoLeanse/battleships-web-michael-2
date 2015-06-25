@@ -1,6 +1,50 @@
-Player 1, please position your ships!
+<% if @status %>
+	<h1>The coordinate(s) you entered are invalid or the ships overlapped</h1>
+<% else %>
+	<h1>Player 1, please position your ships!</h1>
+<% end %>
+
+
 <form method="post">
-  <input type="text" name="sub_coords">
-  <input type="text" name="sub_dir">
-  <input type="submit" value="Submit">
+	<h2>Position Submarine:</h2>
+	<p><b>Orientation:</b> 
+	<input type="radio" name="sub_dir" value='horizontal'>Horizontal
+  	<input type="radio" name="sub_dir" value='vertical'>Vertical
+    </p>
+    <p><b>Coordinate:</b> 
+	<input type="text" name="sub_coord">
+    </p>
+    <h2>Position Battleship:</h2>
+	<p><b>Orientation:</b> 
+	<input type="radio" name="bat_dir" value='horizontal'>Horizontal
+  	<input type="radio" name="bat_dir" value='vertical'>Vertical
+    </p>
+    <p><b>Coordinate:</b> 
+	<input type="text" name="bat_coord">
+    </p>
+    <h2>Position Destroyer:</h2>
+	<p><b>Orientation:</b> 
+	<input type="radio" name="des_dir" value='horizontal'>Horizontal
+  	<input type="radio" name="des_dir" value='vertical'>Vertical
+    </p>
+    <p><b>Coordinate:</b> 
+	<input type="text" name="des_coord">
+    </p>
+    <h2>Position Cruiser:</h2>
+	<p><b>Orientation:</b> 
+	<input type="radio" name="cru_dir" value='horizontal'>Horizontal
+  	<input type="radio" name="cru_dir" value='vertical'>Vertical
+    </p>
+    <p><b>Coordinate:</b> 
+	<input type="text" name="cru_coord">
+    </p>
+    <h2>Position Carrier:</h2>
+	<p><b>Orientation:</b> 
+	<input type="radio" name="car_dir" value='horizontal'>Horizontal
+  	<input type="radio" name="car_dir" value='vertical'>Vertical
+    </p>
+    <p><b>Coordinate:</b> 
+	<input type="text" name="car_coord">
+    </p>
+    <input type="submit" value="Submit">
 </form>
